@@ -5,6 +5,13 @@
     <artifactId>ksp-mod-manager</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <licenses>
+        <license>
+            <distribution>manual</distribution>
+            <name>Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</name>
+            <url>http://creativecommons.org/licenses/by-nc/4.0/</url>
+        </license>
+    </licenses>
     <contributors>
         <contributor>
             <name>Llorx</name>
