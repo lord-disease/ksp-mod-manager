@@ -1,5 +1,6 @@
 package llorx.kspModManager;
 
+import llorx.kspModManager.mod.Mod;
 import java.io.Externalizable;
 import java.io.*;
 

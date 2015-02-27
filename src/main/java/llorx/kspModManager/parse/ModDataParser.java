@@ -1,14 +1,9 @@
 package llorx.kspModManager.parse;
 
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-
-import java.io.*;
 
 import llorx.kspModManager.Browser;
 import llorx.kspModManager.Http;
-import llorx.kspModManager.Mod;
+import llorx.kspModManager.mod.Mod;
 import llorx.kspModManager.Strings;
 import llorx.kspModManager.ErrorLog;
 import org.jsoup.nodes.Document;
@@ -32,31 +27,31 @@ public class ModDataParser {
 
     public static void parseModData(Mod mod, Response res) {
 		switch(mod.getType()) {
-			case Mod.TYPE_SPACEPORT:
+			case TYPE_SPACEPORT:
                 SpaceportParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_KSPFORUM:
+			case TYPE_KSPFORUM:
                 KspForumDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_JENKINS:
+			case TYPE_JENKINS:
                 JenkinsDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_GITHUB:
+			case TYPE_GITHUB:
                 GitHubDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_BITBUCKET:
+                        case TYPE_BITBUCKET:
                 BitBucketDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_DROPBOX_FOLDER:
+			case TYPE_DROPBOX_FOLDER:
 				parseDropboxFolderData(mod, res);
 				break;
-			case Mod.TYPE_CURSEFORGE:
+			case TYPE_CURSEFORGE:
                 CurseForgeDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_CURSE:
+			case TYPE_CURSE:
                 CurseDataParser.parseData(mod, res);
 				break;
-			case Mod.TYPE_KERBAL_SPACE_PARTS:
+			case TYPE_KERBAL_SPACE_PARTS:
                 KerbalSpacePartsDataParser.parseData(mod, res);
 				break;
 			default:
@@ -82,7 +77,7 @@ public class ModDataParser {
 			Elements links = null;
 			
 			switch(mod.getType()) {
-				case Mod.TYPE_KSPFORUM:
+				case TYPE_KSPFORUM:
 					Element posts = doc.select("ol[id=posts]").first();
 					if (posts != null) {
 						Element post = posts.select("li[id^=post_]").first();

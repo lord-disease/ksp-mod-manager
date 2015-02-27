@@ -8,44 +8,50 @@ import javax.swing.JTree;
 import javax.swing.JCheckBox;
 
 public class CheckTreeManager extends MouseAdapter implements TreeSelectionListener {
-    private CheckTreeSelectionModel selectionModel;
+
+    private final CheckTreeSelectionModel selectionModel;
     private JTree tree = new JTree();
     int hotspot = new JCheckBox().getPreferredSize().width;
-	
+
     public CheckTreeManager(JTree tree) {
         this.tree = tree;
         selectionModel = new CheckTreeSelectionModel(tree.getModel());
-		selectionModel.addSelectionPath(new TreePath(((DefaultMutableTreeNode)tree.getModel().getRoot()).getPath()));
+        selectionModel.addSelectionPath(new TreePath(((DefaultMutableTreeNode) tree.getModel().getRoot()).getPath()));
         tree.setCellRenderer(new CheckTreeCellRenderer(tree.getCellRenderer(), selectionModel));
         tree.addMouseListener(this);
         selectionModel.addTreeSelectionListener(this);
     }
-	
+
+    @Override
     public void mouseClicked(MouseEvent me) {
         TreePath path = tree.getPathForLocation(me.getX(), me.getY());
-        if(path == null)
+        if (path == null) {
             return;
-        if(me.getX()>tree.getPathBounds(path).x+hotspot)
+        }
+        if (me.getX() > tree.getPathBounds(path).x + hotspot) {
             return;
- 
+        }
+
         boolean selected = selectionModel.isPathSelected(path, true);
         selectionModel.removeTreeSelectionListener(this);
-		
+
         try {
-            if(selected)
+            if (selected) {
                 selectionModel.removeSelectionPath(path);
-            else
+            } else {
                 selectionModel.addSelectionPath(path);
+            }
         } finally {
             selectionModel.addTreeSelectionListener(this);
             tree.treeDidChange();
         }
     }
-	
+
     public CheckTreeSelectionModel getSelectionModel() {
         return selectionModel;
     }
-	
+
+    @Override
     public void valueChanged(TreeSelectionEvent e) {
         tree.treeDidChange();
     }

@@ -1,8 +1,7 @@
 package llorx.kspModManager;
 
 /*import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;*/
-
+ import org.slf4j.LoggerFactory;*/
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -11,73 +10,77 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-Credit: MightyPork @ StackOverflow.com
-Link: http://stackoverflow.com/questions/18004150/desktop-api-is-not-supported-on-the-current-platform
+ Credit: MightyPork @ StackOverflow.com
+ Link: http://stackoverflow.com/questions/18004150/desktop-api-is-not-supported-on-the-current-platform
 
-Modded by Llorx
-*/
-
+ Modded by Llorx
+ */
 public class DesktopApi {
     //private static final Logger LOGGER = LoggerFactory.getLogger(DesktopApi.class);
 
     public static boolean browse(URI uri) {
 
-        if (openSystemSpecific(uri.toString())) return true;
+        if (openSystemSpecific(uri.toString())) {
+            return true;
+        }
 
-        if (browseDESKTOP(uri)) return true;
-
-        return false;
+        return browseDESKTOP(uri);
     }
-
 
     public static boolean open(File file) {
 
-        if (openSystemSpecific(file.getPath())) return true;
+        if (openSystemSpecific(file.getPath())) {
+            return true;
+        }
 
-        if (openDESKTOP(file)) return true;
-
-        return false;
+        return openDESKTOP(file);
     }
-
 
     public static boolean edit(File file) {
 
         // you can try something like
         // runCommand("gimp", "%s", file.getPath())
         // based on user preferences.
+        if (openSystemSpecific(file.getPath())) {
+            return true;
+        }
 
-        if (openSystemSpecific(file.getPath())) return true;
-
-        if (editDESKTOP(file)) return true;
-
-        return false;
+        return editDESKTOP(file);
     }
-
 
     private static boolean openSystemSpecific(String what) {
 
         EnumOS os = getOs();
 
         if (os.isLinux()) {
-            if (runCommand("kde-open", "%s", what)) return true;
-            if (runCommand("gnome-open", "%s", what)) return true;
-            if (runCommand("xdg-open", "%s", what)) return true;
+            if (runCommand("kde-open", "%s", what)) {
+                return true;
+            }
+            if (runCommand("gnome-open", "%s", what)) {
+                return true;
+            }
+            if (runCommand("xdg-open", "%s", what)) {
+                return true;
+            }
         }
 
         if (os.isMac()) {
-            if (runCommand("open", "%s", what)) return true;
+            if (runCommand("open", "%s", what)) {
+                return true;
+            }
         }
 
         if (os.isWindows()) {
-            if (runCommand("explorer", "%s", what)) return true;
+            if (runCommand("explorer", "%s", what)) {
+                return true;
+            }
         }
 
         return false;
     }
 
-
     private static boolean browseDESKTOP(URI uri) {
-	
+
         try {
             if (!Desktop.isDesktopSupported()) {
                 return false;
@@ -95,7 +98,6 @@ public class DesktopApi {
             return false;
         }
     }
-
 
     private static boolean openDESKTOP(File file) {
 
@@ -117,7 +119,6 @@ public class DesktopApi {
         }
     }
 
-
     private static boolean editDESKTOP(File file) {
 
         try {
@@ -138,26 +139,26 @@ public class DesktopApi {
         }
     }
 
-
     private static boolean runCommand(String command, String args, String file) {
 
         String[] parts = prepareCommand(command, args, file);
 
         try {
             Process p = Runtime.getRuntime().exec(parts);
-            if (p == null) return false;
+            if (p == null) {
+                return false;
+            }
         } catch (IOException e) {
             //LOGGER.error("", e);
-			ErrorLog.log(e);
+            ErrorLog.log(e);
             return false;
         }
-		return true;
+        return true;
     }
-
 
     private static String[] prepareCommand(String command, String args, String file) {
 
-        List<String> parts = new ArrayList<String>();
+        List<String> parts = new ArrayList<>();
         parts.add(command);
 
         if (args != null) {
@@ -172,6 +173,7 @@ public class DesktopApi {
     }
 
     public static enum EnumOS {
+
         linux, macos, solaris, unknown, windows;
 
         public boolean isLinux() {
@@ -179,19 +181,16 @@ public class DesktopApi {
             return this == linux || this == solaris;
         }
 
-
         public boolean isMac() {
 
             return this == macos;
         }
-
 
         public boolean isWindows() {
 
             return this == windows;
         }
     }
-
 
     public static EnumOS getOs() {
         String s = System.getProperty("os.name").toLowerCase();

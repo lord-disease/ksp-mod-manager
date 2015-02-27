@@ -1,9 +1,10 @@
 package llorx.kspModManager;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 class ChangeLog {
-	private static String[][] changes = {
+	private static final String[][] changes = {
 		{
 			"Better Changelog output when updating: Will output changes according to the previous version.",
 			"Download filename fix: No more empty downloaded files (finally...)",
@@ -22,14 +23,14 @@ class ChangeLog {
 	};
 	
 	public static String get(int oldVersion) {
-		LinkedHashSet<String> log = new LinkedHashSet<String>();
+		Set<String> log = new LinkedHashSet<>();
 		for (int i = oldVersion; i < ChangeLog.changes.length; i++) {
 			if (ChangeLog.changes[i] != null) {
-				for (int ii = 0; ii < ChangeLog.changes[i].length; ii++) {
-					if (ChangeLog.changes[i][ii] != null && ChangeLog.changes[i][ii].length() > 0) {
-						log.add(" - " + ChangeLog.changes[i][ii]);
-					}
-				}
+                            for (String change : ChangeLog.changes[i]) {
+                                if (change != null && change.length() > 0) {
+                                    log.add(" - " + change);
+                                }
+                            }
 			}
 		}
 		String logString = "";
@@ -49,11 +50,11 @@ class ChangeLog {
 	
 	private static int countNotNulls() {
 		int c = 0;
-		for (int i = 0; i < ChangeLog.changes.length; i++) {
-			if (ChangeLog.changes[i] != null) {
-				c++;
-			}
-		}
+            for (String[] change : ChangeLog.changes) {
+                if (change != null) {
+                    c++;
+                }
+            }
 		return c;
 	}
 }

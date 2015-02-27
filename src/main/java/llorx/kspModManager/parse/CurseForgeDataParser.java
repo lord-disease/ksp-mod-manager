@@ -1,7 +1,7 @@
 package llorx.kspModManager.parse;
 
 import llorx.kspModManager.Http;
-import llorx.kspModManager.Mod;
+import llorx.kspModManager.mod.Mod;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
