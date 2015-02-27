@@ -8,6 +8,7 @@ package llorx.kspModManager;
 import llorx.kspModManager.mod.Mod;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import static llorx.kspModManager.utils.Locale.getLocalised;
 
 /**
  *
@@ -40,9 +41,9 @@ public class MyTableModel extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return Strings.get(Strings.MOD_NAME);
+                return getLocalised("MOD_NAME");
             case 1:
-                return Strings.get(Strings.LATEST_DATE);
+                return getLocalised("LATEST_DATE");
         }
         return "";
     }

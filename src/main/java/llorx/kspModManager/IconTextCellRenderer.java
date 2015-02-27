@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import static llorx.kspModManager.utils.Locale.getLocalised;
 
 /**
  *
@@ -60,7 +61,7 @@ public class IconTextCellRenderer extends DefaultTableCellRenderer {
                         }
                     }
                     if (mod.getLastDate() != null) {
-                        setText((mod.justUpdated == true ? "[" + (mod.isInstallable() ? Strings.get(Strings.NEW_VERSION) : Strings.get(Strings.NEW_UPDATE)) + "] " : (mod.errorUpdate == true ? "[" + Strings.get(Strings.DOWNLOAD_ERROR) + "] " : "")) + this.sdfDate.format(mod.getLastDate()) + " | " + mod.getPrefix());
+                        setText((mod.justUpdated == true ? "[" + (mod.isInstallable() ? getLocalised("NEW_VERSION") : getLocalised("NEW_UPDATE")) + "] " : (mod.errorUpdate == true ? "[" + getLocalised("DOWNLOAD_ERROR") + "] " : "")) + this.sdfDate.format(mod.getLastDate()) + " | " + mod.getPrefix());
                     }
                 }
                 break;

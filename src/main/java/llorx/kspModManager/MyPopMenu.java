@@ -12,20 +12,21 @@ import java.net.URI;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import static llorx.kspModManager.utils.Locale.getLocalised;
 
 /**
  *
  * @author disease
  */
 public class MyPopMenu extends JPopupMenu implements ActionListener {
-    JMenuItem menuItemRename = new JMenuItem(Strings.get(Strings.MENU_RENAME), new ImageIcon(getClass().getResource("/images/rename.gif")));
-    JMenuItem menuItemOpenLink = new JMenuItem(Strings.get(Strings.MENU_OPEN_BROWSER), new ImageIcon(getClass().getResource("/images/link.gif")));
-    JMenuItem menuItemChangeLink = new JMenuItem(Strings.get(Strings.MENU_CHANGE_LINK), new ImageIcon(getClass().getResource("/images/download_link.png")));
-    JMenuItem menuItemReinstall = new JMenuItem(Strings.get(Strings.MENU_REDOWNLOAD), new ImageIcon(getClass().getResource("/images/install.png")));
-    JMenuItem menuItemUpdate = new JMenuItem(Strings.get(Strings.MENU_CHECK_UPDATE), new ImageIcon(getClass().getResource("/images/update.png")));
-    JMenuItem menuItemDelete = new JMenuItem(Strings.get(Strings.MENU_UNINSTALL), new ImageIcon(getClass().getResource("/images/delete.png")));
-    JMenuItem menuItemStop = new JMenuItem(Strings.get(Strings.MENU_STOP), new ImageIcon(getClass().getResource("/images/stop.png")));
-    JMenuItem menuItemAllDisabled = new JMenuItem(Strings.get(Strings.MENU_DISABLED));
+    JMenuItem menuItemRename = new JMenuItem(getLocalised("MENU_RENAME"), new ImageIcon(getClass().getResource("/images/rename.gif")));
+    JMenuItem menuItemOpenLink = new JMenuItem(getLocalised("MENU_OPEN_BROWSER"), new ImageIcon(getClass().getResource("/images/link.gif")));
+    JMenuItem menuItemChangeLink = new JMenuItem(getLocalised("MENU_CHANGE_LINK"), new ImageIcon(getClass().getResource("/images/download_link.png")));
+    JMenuItem menuItemReinstall = new JMenuItem(getLocalised("MENU_REDOWNLOAD"), new ImageIcon(getClass().getResource("/images/install.png")));
+    JMenuItem menuItemUpdate = new JMenuItem(getLocalised("MENU_CHECK_UPDATE"), new ImageIcon(getClass().getResource("/images/update.png")));
+    JMenuItem menuItemDelete = new JMenuItem(getLocalised("MENU_UNINSTALL"), new ImageIcon(getClass().getResource("/images/delete.png")));
+    JMenuItem menuItemStop = new JMenuItem(getLocalised("MENU_STOP"), new ImageIcon(getClass().getResource("/images/stop.png")));
+    JMenuItem menuItemAllDisabled = new JMenuItem(getLocalised("MENU_DISABLED"));
     Mod mod;
     private final Main outer;
 
@@ -33,8 +34,8 @@ public class MyPopMenu extends JPopupMenu implements ActionListener {
         this.outer = outer;
         this.mod = mod;
         if (this.mod.isInstallable() == false) {
-            menuItemReinstall.setText(Strings.get(Strings.MENU_DOWNLOAD));
-            menuItemDelete.setText(Strings.get(Strings.MENU_REMOVE));
+            menuItemReinstall.setText(getLocalised("MENU_DOWNLOAD"));
+            menuItemDelete.setText(getLocalised("MENU_REMOVE"));
         }
         if (this.mod.getWork()) {
             this.add(menuItemOpenLink);

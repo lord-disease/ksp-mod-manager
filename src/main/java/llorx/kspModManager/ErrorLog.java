@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import javax.swing.JOptionPane;
+import static llorx.kspModManager.utils.Locale.getLocalised;
 
 public class ErrorLog {
 
@@ -12,7 +13,7 @@ public class ErrorLog {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream("errors.txt", true));
             e.printStackTrace(ps);
-            JOptionPane.showMessageDialog(null, Strings.get(Strings.ERROR_OCCURRED_SEND), Strings.get(Strings.ERROR), JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, getLocalised("ERROR_OCCURRED_SEND"), getLocalised("ERROR"), JOptionPane.PLAIN_MESSAGE);
         } catch (FileNotFoundException | HeadlessException ee) {
         }
     }

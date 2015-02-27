@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
+import static llorx.kspModManager.utils.Locale.getLocalised;
 
 public class Browser {
 
@@ -78,7 +79,7 @@ public class Browser {
         LineBorder line = new LineBorder(Color.darkGray, 1);
         loading.setBorder(line);
 
-        final JButton jButton = new JButton("<< " + Strings.get(Strings.BROWSER_BACK));
+        final JButton jButton = new JButton("<< " + getLocalised("BROWSER_BACK"));
         dialog.add(jButton);
         jButton.setSize(new Dimension(100, 27));
         jButton.addActionListener(e -> {
@@ -131,7 +132,7 @@ public class Browser {
                 Matcher matcher = pattern.matcher(link);
                 if (matcher.find()) {
                     link = matcher.group(0);
-                    int reply = JOptionPane.showConfirmDialog(null, Strings.get(Strings.LINK_DETECTED_ASK).replace("%SERVERNAME%", name), Strings.get(Strings.LINK_DETECTED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int reply = JOptionPane.showConfirmDialog(null, getLocalised("LINK_DETECTED_ASK").replace("%SERVERNAME%", name), getLocalised("LINK_DETECTED_TITLE"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (reply == JOptionPane.YES_OPTION) {
                         modReloaded = true;
                         mod.reloadMod(link);
@@ -170,7 +171,7 @@ public class Browser {
                     int fileType = Http.fileType(conn);
                     if (modReloaded == false && fileType != Http.HTML) {
                         if (fileType == Http.ZIP_EXTENSION) {
-                            int reply = JOptionPane.showConfirmDialog(null, Strings.get(Strings.LINK_SELECTED_ASK).replace("%LINKCLICKED%", lastClick), Strings.get(Strings.SURE_ASK), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            int reply = JOptionPane.showConfirmDialog(null, getLocalised("LINK_SELECTED_ASK").replace("%LINKCLICKED%", lastClick), getLocalised("SURE_ASK"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                             if (reply == JOptionPane.YES_OPTION) {
                                 downloadFile = conn;
                                 Platform.runLater(() -> {
@@ -179,7 +180,7 @@ public class Browser {
                                 });
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, Strings.get(Strings.FILE_NOT_SUPPORTED), Strings.get(Strings.FILE_NOT_SUPPORTED_TITLE), JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.showMessageDialog(null, getLocalised("FILE_NOT_SUPPORTED"), getLocalised("FILE_NOT_SUPPORTED_TITLE"), JOptionPane.PLAIN_MESSAGE);
                         }
                     }
                 } catch (Exception e) {
